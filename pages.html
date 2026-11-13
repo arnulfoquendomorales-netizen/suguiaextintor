@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Portal formativo especializado en la conservación y verificación operativa de extintores domiciliarios. Espacio preventivo sin fines mercantiles.">
+<meta name="author" content="Wilson Marin Ortiz">
+<meta name="robots" content="index, follow">
+<title>Wilson Marin Ortiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f0f9ff;
+    --bg-card: rgba(240, 249, 255, 0.85);
+    --bg-card-hover: rgba(224, 242, 254, 0.95);
+    --border-glow: rgba(3, 105, 161, 0.35);
+    --border-subtle: rgba(14, 165, 233, 0.15);
+    --accent-blue: #0369a1;
+    --accent-darkblue: #0c4a6e;
+    --accent-cyan: #0ea5e9;
+    --accent-emerald: #059669;
+    --accent-orange: #d97706;
+    --text-primary: #0f172a;
+    --text-secondary: #334155;
+    --text-muted: #64748b;
+    --gradient-1: linear-gradient(135deg, #0369a1 0%, #0ea5e9 100%);
+    --gradient-2: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+    --gradient-3: linear-gradient(135deg, #0ea5e9 0%, #059669 100%);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    background-color: var(--bg-primary);
+    background-image:
+        radial-gradient(circle at 10% 15%, rgba(14, 165, 233, 0.06) 0%, transparent 45%),
+        radial-gradient(circle at 90% 85%, rgba(3, 105, 161, 0.05) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(5, 150, 105, 0.03) 0%, transparent 60%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(14, 165, 233, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(14, 165, 233, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+    animation: gridDrift 70s linear infinite;
+}
+
+@keyframes gridDrift {
+    0% { background-position: 0 0; }
+    100% { background-position: 60px 60px; }
+}
+
+/* Scanning line effect */
+.scan-line {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+    box-shadow: 0 0 12px var(--accent-cyan);
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.4;
+    animation: scan 9s linear infinite;
+}
+
+@keyframes scan {
+    0% { transform: translateY(-2px); }
+    100% { transform: translateY(100vh); }
+}
+
+/* ===== HEADER ===== */
+header {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.logo-mark {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: var(--gradient-1);
+    display: grid;
+    place-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    color: white;
+    font-weight: 700;
+    font-size: 0.9rem;
+    box-shadow: 0 0 20px rgba(3, 105, 161, 0.3);
+    position: relative;
+    animation: logoPulse 4s ease-in-out infinite;
+}
+
+.logo-mark::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 12px;
+    background: var(--gradient-1);
+    opacity: 0.5;
+    filter: blur(8px);
+    z-index: -1;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+}
+
+.logo-text small {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+
+nav a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: 0.55rem 1rem;
+    border-radius: 8px;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    display: inline-block;
+    border: 1px solid transparent;
+}
+
+nav a:hover {
+    color: var(--accent-blue);
+    background: rgba(3, 105, 161, 0.08);
+    border-color: var(--border-glow);
+}
+
+nav a.active {
+    color: var(--accent-blue);
+    background: rgba(3, 105, 161, 0.12);
+    border-color: var(--border-glow);
+    box-shadow: 0 0 12px rgba(3, 105, 161, 0.15);
+}
+
+/* ===== HERO ===== */
+.hero {
+    position: relative;
+    padding: 6rem 2rem 5rem;
+    text-align: center;
+    overflow: hidden;
+}
+
+.hero-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 2.2rem;
+    padding: 0.6rem 1.2rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.hero-meta span { display: inline-flex; align-items: center; gap: 0.4rem; }
+.hero-meta .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent-emerald); box-shadow: 0 0 6px var(--accent-emerald); }
+
+.tech-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin: 2rem 0 0;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, rgba(3, 105, 161, 0.04) 0%, transparent 100%);
+    border: 1px solid var(--border-subtle);
+    padding: 1.2rem 1rem;
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    border-color: var(--accent-blue);
+    transform: translateY(-3px);
+}
+
+.stat-card .num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+    margin-bottom: 0.3rem;
+}
+
+.stat-card .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center top, rgba(14, 165, 233, 0.08) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(3, 105, 161, 0.08);
+    border: 1px solid var(--border-glow);
+    padding: 0.5rem 1.1rem;
+    border-radius: 100px;
+    font-size: 0.82rem;
+    margin-bottom: 1.8rem;
+    font-weight: 500;
+    color: var(--accent-blue);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.02em;
+}
+
+.badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-blue);
+    box-shadow: 0 0 8px var(--accent-blue);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.3); }
+}
+
+.hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.4rem;
+    color: var(--text-primary);
+}
+
+.hero h1 .accent {
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero p {
+    font-size: 1.15rem;
+    max-width: 720px;
+    margin: 0 auto;
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+/* ===== MAIN ===== */
+main {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 3rem 2rem 4rem;
+    position: relative;
+    z-index: 1;
+}
+
+.page { display: none; animation: fadeUp 0.5s ease; }
+.page.active { display: block; }
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+section {
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 2.5rem;
+    margin-bottom: 1.8rem;
+    border-radius: 16px;
+    border: 1px solid var(--border-subtle);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    transition: border-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+section:hover {
+    border-color: var(--border-glow);
+}
+
+section:hover::before { opacity: 0.6; }
+
+h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    color: var(--text-primary);
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+h2::before {
+    content: '';
+    width: 4px;
+    height: 26px;
+    background: var(--gradient-1);
+    border-radius: 2px;
+    box-shadow: 0 0 10px var(--accent-blue);
+}
+
+h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    color: var(--accent-blue);
+    font-size: 1.18rem;
+    font-weight: 600;
+    margin-top: 1.6rem;
+    margin-bottom: 0.7rem;
+    letter-spacing: -0.01em;
+}
+
+p {
+    margin-bottom: 1rem;
+    text-align: justify;
+    color: var(--text-secondary);
+}
+
+ul, ol { margin-left: 1.6rem; margin-bottom: 1rem; color: var(--text-secondary); }
+li { margin-bottom: 0.5rem; }
+
+strong { color: var(--text-primary); font-weight: 600; }
+em { color: var(--text-muted); }
+
+/* ===== ALERT BOXES ===== */
+.highlight-box, .info-box, .responsable-box, .warning-box {
+    padding: 1.3rem 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 12px;
+    border: 1px solid;
+    backdrop-filter: blur(5px);
+}
+
+.highlight-box {
+    background: rgba(217, 119, 6, 0.05);
+    border-color: rgba(217, 119, 6, 0.25);
+    border-left: 3px solid var(--accent-orange);
+}
+
+.highlight-box strong { color: var(--accent-orange); }
+
+.info-box {
+    background: rgba(3, 105, 161, 0.04);
+    border-color: rgba(3, 105, 161, 0.2);
+    border-left: 3px solid var(--accent-cyan);
+}
+
+.info-box strong { color: var(--accent-blue); }
+
+.warning-box {
+    background: rgba(220, 38, 38, 0.04);
+    border-color: rgba(220, 38, 38, 0.25);
+    border-left: 3px solid #dc2626;
+}
+
+.warning-box strong { color: #dc2626; }
+
+.responsable-box {
+    background: rgba(5, 150, 105, 0.04);
+    border-color: rgba(5, 150, 105, 0.25);
+    border-left: 3px solid var(--accent-emerald);
+}
+
+.responsable-box strong { color: var(--accent-emerald); }
+
+/* ===== GRIDS & CARDS ===== */
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; margin: 2rem 0; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 2rem 0; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; margin: 2rem 0; }
+
+.service-card {
+    background: linear-gradient(135deg, rgba(3, 105, 161, 0.03) 0%, rgba(14, 165, 233, 0.03) 100%);
+    border: 1px solid var(--border-subtle);
+    padding: 2rem 1.5rem;
+    border-radius: 14px;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent-cyan);
+    box-shadow: 0 8px 30px -10px rgba(3, 105, 161, 0.15);
+}
+
+.service-card .icon {
+    font-size: 2.2rem;
+    margin-bottom: 0.8rem;
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--border-subtle);
+}
+
+.service-card h3 { margin-top: 0.8rem; color: var(--text-primary); }
+.service-card p { text-align: center; color: var(--text-muted); font-size: 0.95rem; }
+
+.type-card {
+    background: linear-gradient(180deg, rgba(14, 165, 233, 0.04) 0%, transparent 100%);
+    border: 1px solid var(--border-subtle);
+    padding: 1.4rem 1rem;
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.type-card:hover {
+    border-color: var(--accent-cyan);
+    transform: translateY(-3px);
+}
+
+.type-card .badge-letter {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    background: var(--gradient-1);
+    color: white;
+    border-radius: 50%;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 1.4rem;
+    margin-bottom: 0.7rem;
+    box-shadow: 0 0 15px rgba(3, 105, 161, 0.3);
+}
+
+.type-card h4 {
+    color: var(--text-primary);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+}
+
+.type-card p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin: 0;
+}
+
+.grid-2 .card {
+    background: linear-gradient(135deg, rgba(3, 105, 161, 0.03) 0%, rgba(14, 165, 233, 0.03) 100%);
+    border: 1px solid var(--border-subtle);
+    padding: 2rem;
+    border-radius: 14px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.grid-2 .card:hover { transform: translateY(-3px); border-color: var(--border-glow); }
+.grid-2 .card h3 { margin-top: 0; color: var(--text-primary); font-size: 1.3rem; }
+
+/* ===== BREADCRUMB ===== */
+.breadcrumb {
+    background: rgba(3, 105, 161, 0.04);
+    border: 1px solid var(--border-subtle);
+    padding: 0.6rem 1.1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.breadcrumb a {
+    color: var(--accent-blue);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.breadcrumb a:hover { text-decoration: underline; }
+
+/* ===== TIPS ===== */
+.tip {
+    background: linear-gradient(90deg, rgba(3, 105, 161, 0.04) 0%, transparent 100%);
+    border: 1px solid var(--border-subtle);
+    border-left: 3px solid var(--accent-cyan);
+    padding: 1rem 1.2rem;
+    margin: 0.7rem 0;
+    border-radius: 8px;
+    transition: all 0.25s ease;
+    color: var(--text-secondary);
+}
+
+.tip:hover {
+    background: linear-gradient(90deg, rgba(3, 105, 161, 0.08) 0%, transparent 100%);
+    transform: translateX(4px);
+    border-left-color: var(--accent-blue);
+}
+
+.tip strong { color: var(--accent-blue); }
+
+/* PASS Steps */
+.pass-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.pass-step {
+    background: linear-gradient(180deg, rgba(14, 165, 233, 0.05) 0%, rgba(3, 105, 161, 0.02) 100%);
+    border: 1px solid var(--border-subtle);
+    padding: 1.5rem 1rem;
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.pass-step:hover {
+    border-color: var(--accent-cyan);
+    transform: translateY(-3px);
+}
+
+.pass-step .step-num {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent-blue);
+    color: white;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 0.85rem;
+    line-height: 26px;
+    box-shadow: 0 0 10px rgba(3, 105, 161, 0.4);
+}
+
+.pass-step .letter {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent-blue);
+    margin-bottom: 0.4rem;
+}
+
+.pass-step h4 {
+    color: var(--text-primary);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.95rem;
+    margin-bottom: 0.4rem;
+}
+
+.pass-step p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin: 0;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    background: #0b1329;
+    color: #cbd5e1;
+    padding: 3.5rem 2rem 1.5rem;
+    margin-top: 4rem;
+    border-top: 1px solid var(--border-subtle);
+    position: relative;
+    z-index: 1;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    max-width: 600px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+    opacity: 0.5;
+}
+
+.footer-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 2.5rem;
+}
+
+footer h4 {
+    color: #ffffff;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-family: 'Space Grotesk', sans-serif;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+footer p, footer li {
+    font-size: 0.88rem;
+    color: #94a3b8;
+    line-height: 1.65;
+}
+
+footer ul { list-style: none; margin-left: 0; }
+footer ul li { margin-bottom: 0.5rem; }
+
+footer a {
+    color: #cbd5e1;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.25s ease;
+}
+
+footer a:hover { color: var(--accent-cyan); }
+
+.responsable-footer {
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(14, 165, 233, 0.25);
+    padding: 1.5rem;
+    border-radius: 14px;
+    position: relative;
+}
+
+.responsable-footer::before {
+    content: 'ID';
+    position: absolute;
+    top: -10px;
+    left: 1.5rem;
+    background: #0b1329;
+    color: var(--accent-cyan);
+    padding: 0 0.6rem;
+    font-size: 0.7rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+}
+
+.responsable-footer h4 { color: var(--accent-cyan); }
+.responsable-footer strong { color: #ffffff; }
+
+.footer-bottom {
+    max-width: 1280px;
+    margin: 3rem auto 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    font-size: 0.82rem;
+    color: #94a3b8;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.footer-bottom p { margin-bottom: 0.4rem; }
+
+/* ===== BOTÓN FLOTANTE DE WHATSAPP ===== */
+.whatsapp-float {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 60px;
+    height: 60px;
+    background-color: #25d366;
+    color: #FFF;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 30px;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+    background-color: #20ba5a;
+}
+
+.whatsapp-icon {
+    width: 32px;
+    height: 32px;
+    fill: white;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .hero { padding: 4rem 1.5rem 3rem; }
+    .hero h1 { font-size: 1.8rem; }
+    .hero p { font-size: 1rem; }
+    .grid-2, .grid-3, .grid-4, .pass-grid, .tech-stats { grid-template-columns: 1fr 1fr; }
+    .footer-container { grid-template-columns: 1fr; }
+    nav ul { gap: 0.3rem; justify-content: center; }
+    nav a { font-size: 0.82rem; padding: 0.4rem 0.7rem; }
+    .header-container { flex-direction: column; }
+    section { padding: 1.6rem; }
+    h2 { font-size: 1.35rem; }
+    main { padding: 2rem 1.2rem 3rem; }
+    .logo { font-size: 1rem; }
+    .logo-mark { width: 34px; height: 34px; }
+    .scan-line { display: none; }
+    .whatsapp-float { bottom: 20px; right: 20px; width: 50px; height: 50px; }
+    .whatsapp-icon { width: 26px; height: 26px; }
+}
+
+@keyframes logoPulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(3, 105, 161, 0.3); }
+    50% { box-shadow: 0 0 30px rgba(3, 105, 161, 0.5), 0 0 50px rgba(14, 165, 233, 0.2); }
+}
+
+/* Cursor blink in hero */
+.cursor {
+    display: inline-block;
+    width: 3px;
+    height: 1em;
+    background: var(--accent-blue);
+    margin-left: 4px;
+    vertical-align: middle;
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+::selection {
+    background: rgba(3, 105, 161, 0.2);
+    color: var(--text-primary);
+}
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--bg-secondary); }
+::-webkit-scrollbar-thumb {
+    background: rgba(3, 105, 161, 0.25);
+    border-radius: 10px;
+    border: 2px solid var(--bg-primary);
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(3, 105, 161, 0.45); }
+</style>
+</head>
+<body>
+
+<div class="scan-line"></div>
+
+<header>
+    <div class="header-container">
+        <div class="logo">
+            <div class="logo-mark">WM</div>
+            <div class="logo-text">
+                <span>Wilson Marin Ortiz</span>
+                <small>Portal Pedagógico</small>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#inicio" id="nav-inicio">Principal</a></li>
+                <li><a href="#sobre-nosotros" id="nav-sobre-nosotros">Nuestra Entidad</a></li>
+                <li><a href="#mision-vision" id="nav-mision-vision">Filosofía</a></li>
+                <li><a href="#politicas-privacidad" id="nav-politicas-privacidad">Normativa Legal</a></li>
+                <li><a href="#terminos-condiciones" id="nav-terminos-condiciones">Condiciones</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- ====================== INICIO ====================== -->
+<div id="page-inicio" class="page active">
+    <div class="hero">
+        <div class="hero-content">
+            <span class="badge">Iniciativa ciudadana · Cero actividades comerciales</span>
+            <h1>Conservación Preventiva de <span class="accent">Sistemas Extintores</span><span class="cursor"></span></h1>
+            <p>Manual técnico orientativo diseñado para instruir a núcleos familiares acerca de la correcta revisión, manipulación y mantenimiento preventivo de dispositivos extintores residenciales.</p>
+            <div class="hero-meta">
+                <span><span class="dot"></span> NÚCLEO INFORMATIVO OPERATIVO</span>
+                <span>Edición 2026</span>
+                <span>Atlántico - CO</span>
+            </div>
+            <div class="tech-stats">
+                <div class="stat-card">
+                    <div class="num">04</div>
+                    <div class="label">Niveles de Fuego</div>
+                </div>
+                <div class="stat-card">
+                    <div class="num">P.A.S.S.</div>
+                    <div class="label">Método Operativo</div>
+                </div>
+                <div class="stat-card">
+                    <div class="num">365</div>
+                    <div class="label">Días de Vigencia</div>
+                </div>
+                <div class="stat-card">
+                    <div class="num">123</div>
+                    <div class="label">Apoyo Inmediato</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <section>
+            <h2>Finalidad y Alcance Formativo</h2>
+            <p>Este espacio digital cumple una <strong>misión estrictamente pedagógica y de divulgación preventiva</strong>. Su principal cometido consiste en proveer orientación práctica a las comunidades sobre el monitoreo y cuidado preventivo de extintores particulares, fomentando una sólida cultura de autoprotección y gestión de riesgos contra incendios.</p>
+
+            <div class="highlight-box">
+                <strong>¿Por qué impulsamos esta plataforma formativa?</strong>
+                <p style="margin-top: 0.6rem;">Numerosos incidentes caseros podrían neutralizarse en sus instantes iniciales si las personas dispusieran de equipos funcionales y nociones básicas de manejo. Lamentablemente, es común adquirir un extintor y desatender su supervisión técnica, anulando su respuesta crítica. Este portal mitiga dicha carencia mediante directrices libres, claras y rigurosas.</p>
+            </div>
+
+            <p><strong>Aclaración operativa: este sitio NO efectúa:</strong></p>
+            <ul>
+                <li>Recopilación, almacenamiento ni procesamiento comercial de datos personales.</li>
+                <li>Comercialización de extintores, recargas o dispositivos de seguridad.</li>
+                <li>Inscripciones, registros de miembros ni bases de datos de usuarios.</li>
+                <li>Operaciones financieras de compraventa o pasarelas de pago.</li>
+                <li>Promoción o recomendación de marcas comerciales del sector.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Valor de Contar con un Extintor en Casa</h2>
+            <p>Disponer de un extintor portátil constituye un recurso invaluable para contener emergencias térmicas en sus fases iniciales. Una adecuada accesibilidad y conservación aseguran una capacidad de respuesta rápida para resguardar la integridad del hogar.</p>
+            <div class="grid-3">
+                <div class="service-card">
+                    <div class="icon">⚡</div>
+                    <h3>Contención Inicial</h3>
+                    <p>Neutraliza conatos repentinos antes de que evolucionen hacia daños estructurales graves.</p>
+                </div>
+                <div class="service-card">
+                    <div class="icon">🏡</div>
+                    <h3>Salvaguarda Familiar</h3>
+                    <p>Protege de forma directa la vida de sus seres queridos, mascotas y pertenencias esenciales.</p>
+                </div>
+                <div class="service-card">
+                    <div class="icon">⏱️</div>
+                    <h3>Acción Oportuna</h3>
+                    <p>Permite actuar con rapidez durante el margen crítico de los primeros minutos de un conato.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Tipologías de Fuego y Agentes Extintores</h2>
+            <p>Identificar la clase de material en combustión es elemental para seleccionar correctamente el tipo de agente extintor y asegurar una intervención exitosa.</p>
+            <div class="grid-4">
+                <div class="type-card">
+                    <div class="badge-letter">A</div>
+                    <h4>Materiales Sólidos</h4>
+                    <p>Madera, papel, textiles y cartón.</p>
+                </div>
+                <div class="type-card">
+                    <div class="badge-letter">B</div>
+                    <h4>Líquidos Inflamables</h4>
+                    <p>Gasolina, aceites, pinturas y alcohol.</p>
+                </div>
+                <div class="type-card">
+                    <div class="badge-letter">C</div>
+                    <h4>Sistemas Eléctricos</h4>
+                    <p>Tableros y aparatos bajo tensión.</p>
+                </div>
+                <div class="type-card">
+                    <div class="badge-letter">K</div>
+                    <h4>Grasas Culinarias</h4>
+                    <p>Aceites de cocina animales o vegetales.</p>
+                </div>
+            </div>
+            <div class="info-box">
+                <strong>Sugerencia de selección:</strong> El cilindro de Polvo Químico Seco (PQS) <strong>multipropósito clase ABC</strong> resulta el más indicado para uso residencial general. En áreas de cocina, se recomienda adicionar unidades clase K.
+            </div>
+        </section>
+
+        <section>
+            <h2>Protocolos de Inspección y Mantenimiento</h2>
+            <div class="tip"><strong>1. Localización accesible:</strong> Sitúelo en lugares despejados, visibles y a una altura menor de metro y medio, apartado de la humedad directa y fuentes térmicas.</div>
+            <div class="tip"><strong>2. Chequeo visual periódico:</strong> Verifique mensualmente que la aguja del manómetro permanezca en el rango verde, con el precinto íntegro y sin daños estructurales.</div>
+            <div class="tip"><strong>3. Control de vigencia temporal:</strong> Supervise fechas de fabricación y caducidad; casi la totalidad de extintores residenciales exigen revisión anual obligatoria.</div>
+            <div class="tip"><strong>4. Aseo de componentes:</strong> Compruebe la ausencia de obstrucciones u objetos extraños en mangueras y boquillas de descarga para evitar bloqueos operativos.</div>
+            <div class="tip"><strong>5. Asistencia técnica formal:</strong> Contrate anualmente un taller avalado para el servicio de recarga; evite manipulación autónoma o casera del cilindro.</div>
+            <div class="tip"><strong>6. Homogeneización de cargas:</strong> En equipos PQS, rote o incline levemente el depósito cada dos meses para impedir la compactación interna del agente químico.</div>
+            <div class="tip"><strong>7. Verificación del precinto:</strong> Si nota el pasador liberado o sin sello protector, solicite una inspección técnica de manera inmediata.</div>
+            <div class="tip"><strong>8. Visibilidad de instrucciones:</strong> Asegúrese de que la etiqueta frontal con pautas de operación permanezca limpia y perfectamente legible.</div>
+        </section>
+
+        <section>
+            <h2>Metodología de Activación: Protocolo P.A.S.S.</h2>
+            <p>El estándar internacional P.A.S.S. (Halar, Apuntar, Presionar, Barrer) detalla los movimientos correctos para operar de forma segura un extintor portátil.</p>
+            <div class="pass-grid">
+                <div class="pass-step">
+                    <span class="step-num">1</span>
+                    <div class="letter">P</div>
+                    <h4>Pull / Halar</h4>
+                    <p>Hale el pasador de seguridad rompiendo el precinto plástico.</p>
+                </div>
+                <div class="pass-step">
+                    <span class="step-num">2</span>
+                    <div class="letter">A</div>
+                    <h4>Aim / Apuntar</h4>
+                    <p>Apunte la boquilla con firmeza hacia la base de las llamas.</p>
+                </div>
+                <div class="pass-step">
+                    <span class="step-num">3</span>
+                    <div class="letter">S</div>
+                    <h4>Squeeze / Presionar</h4>
+                    <p>Accione el gatillo de descarga de manera constante y firme.</p>
+                </div>
+                <div class="pass-step">
+                    <span class="step-num">4</span>
+                    <div class="letter">S</div>
+                    <h4>Sweep / Barrer</h4>
+                    <p>Mueva la boquilla lateralmente cubriendo toda la superficie.</p>
+                </div>
+            </div>
+            <div class="warning-box">
+                <strong>Advertencia de autoprotección:</strong> Conserve siempre una ruta libre de evacuación a sus espaldas. Ante fuego descontrolado o humos densos, evacue el sitio de inmediato y llame al <strong>123</strong> o a los bomberos. Su vida es primordial.
+            </div>
+        </section>
+
+        <section>
+            <h2>Directrices Generales de Autoprotección</h2>
+            <ol>
+                <li>Disponga de mínimo un extintor multipropósito ABC operativo en cada nivel de su vivienda.</li>
+                <li>Capacite a todos los residentes mayores sobre la ubicación exacta y el modo de empleo.</li>
+                <li>Organice ejercicios prácticos o simulacros familiares de desalojo una vez al año.</li>
+                <li>Mantenga libres pasillos principales y salidas de emergencia de cualquier obstáculo físico.</li>
+                <li>Instale detectores de humo residenciales y sustituya sus fuentes de energía de forma semestral.</li>
+                <li>Desactive aparatos eléctricos inactivos y revise redes de gas de manera preventiva.</li>
+                <li>Conserve a la vista números de soporte urgente como el <strong>123</strong> y la línea de bomberos.</li>
+            </ol>
+            <div class="info-box">
+                <strong>Nota aclaratoria:</strong> Este compendio ofrece lineamientos divulgativos generales y no sustituye especificaciones técnicas especializadas ni normativas oficiales vigentes (NFPA / NTC). Para instalaciones o revisiones formales, acuda a especialistas certificados.
+            </div>
+        </section>
+    </main>
+</div>
+
+<!-- ====================== SOBRE NOSOTROS ====================== -->
+<div id="page-sobre-nosotros" class="page">
+    <main>
+        <section>
+            <div class="breadcrumb"><a href="#inicio">~/inicio</a> &gt; sobre-nosotros</div>
+            <h2>Nuestra Entidad</h2>
+            <p>Somos una iniciativa formativa independiente establecida en la ciudad de <strong>Barranquilla, Atlántico (Colombia)</strong>, comprometida con la divulgación voluntaria de contenidos orientados a la seguridad residencial, la prevención de siniestros y la conservación idónea de extintores en el hogar.</p>
+            <p>Este portal surge de la necesidad de concientizar a las comunidades sobre el mantenimiento preventivo de sus equipos de seguridad mediante pautas sencillas, transparentes y de libre acceso público.</p>
+
+            <h3>¿Quién coordina el espacio?</h3>
+            <p>La administración y gestión técnica de este sitio corre a cargo de <strong>Wilson Marin Ortiz</strong>, residente en Barranquilla (Atlántico), quien de forma personal y altruista promueve este centro divulgativo sin fines lucrativos ni comerciales.</p>
+
+            <h3>Principios Institucionales</h3>
+            <ul>
+                <li>Difundir contenidos orientativos centrados en la prevención y bienestar familiar.</li>
+                <li>Mantener un portal abierto, gratuito, sin anuncios comerciales ni extracción de datos.</li>
+                <li>Impulsar una sólida cultura ciudadana de autoprotección frente a conatos de incendio.</li>
+                <li>Actualizar de forma constante los parámetros informativos de utilidad práctica.</li>
+                <li>Garantizar el respeto absoluto por la intimidad y confidencialidad de los usuarios.</li>
+            </ul>
+
+            <div class="responsable-box">
+                <strong>Datos de Identificación del Responsable y Anunciante:</strong>
+                <p style="margin-top: 0.6rem;">
+                    <strong>Nombre:</strong> Wilson Marin Ortiz<br>
+                    <strong>Cédula / NIT:</strong> 1.193.406.873-1<br>
+                    <strong>Dirección:</strong> Calle 53d #19.06, Barranquilla, Atlántico — Colombia<br>
+                    <strong>Correo electrónico:</strong> weree9375@gmail.com<br>
+                    <strong>Teléfono:</strong> 301 7894873<br>
+                    <strong>Carácter:</strong> Anunciante y responsable de la administración del sitio
+                </p>
+            </div>
+
+            <h3>Naturaleza Divulgativa</h3>
+            <p>Este portal funciona exclusivamente como guía pedagógica consultiva. No representa a fabricantes, marcas comerciales ni gremios industriales, manteniendo absoluta autonomía en su labor informativa.</p>
+        </section>
+    </main>
+</div>
+
+<!-- ====================== MISIÓN Y VISIÓN ====================== -->
+<div id="page-mision-vision" class="page">
+    <main>
+        <section>
+            <div class="breadcrumb"><a href="#inicio">~/inicio</a> &gt; mision-vision</div>
+            <h2>Filosofía Institucional</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Nuestra Misión</h3>
+                    <p>Proveer orientación pedagógica abierta y gratuita a los hogares colombianos acerca del mantenimiento y operación de extintores residenciales, estimulando la cultura preventiva y la capacidad de reacción temprana ante emergencias, sin actividades mercantiles ni recolección de datos.</p>
+                </div>
+                <div class="card">
+                    <h3>Nuestra Visión</h3>
+                    <p>Ser para el año 2030 una plataforma digital referente en materia de educación preventiva contra incendios domésticos, reconocida por la precisión, claridad y utilidad práctica de sus contenidos orientados a la protección ciudadana.</p>
+                </div>
+            </div>
+
+            <h3>Pilares Axiológicos</h3>
+            <ul>
+                <li><strong>Pedagogía:</strong> El saber preventivo como herramienta indispensable para resguardar vidas.</li>
+                <li><strong>Anticipación:</strong> Promover una cultura de preparación previa frente a riesgos caseros.</li>
+                <li><strong>Claridad:</strong> Divulgación de directrices comprensibles, directas y verificables.</li>
+                <li><strong>Accesibilidad:</strong> Acceso permanente y libre de costos a todos los recursos informativos.</li>
+                <li><strong>Privacidad:</strong> Compromiso estricto de no capturar registros personales de los visitantes.</li>
+                <li><strong>Independencia:</strong> Operación desvinculada de intereses mercantiles particulares.</li>
+            </ul>
+
+            <div class="info-box">
+                <strong>Constancia de cumplimiento:</strong> Los propósitos de misión y visión se difunden en concordancia con los criterios de transparencia informativa aplicables a portales educativos.
+            </div>
+        </section>
+    </main>
+</div>
+
+<!-- ====================== POLÍTICAS Y PRIVACIDAD ====================== -->
+<div id="page-politicas-privacidad" class="page">
+    <main>
+        <section>
+            <div class="breadcrumb"><a href="#inicio">~/inicio</a> &gt; politicas-privacidad</div>
+            <h2>Normativa y Privacidad</h2>
+            <p><em>Última actualización: 8 de mayo de 2026</em></p>
+
+            <div class="responsable-box">
+                <strong>Responsable del Tratamiento de Información:</strong>
+                <p style="margin-top: 0.6rem;">
+                    <strong>Nombre:</strong> Wilson Marin Ortiz<br>
+                    <strong>Cédula / NIT:</strong> 1.193.406.873-1<br>
+                    <strong>Dirección:</strong> Calle 53d #19.06, Barranquilla, Atlántico — Colombia<br>
+                    <strong>Correo electrónico:</strong> weree9375@gmail.com<br>
+                    <strong>Teléfono:</strong> 301 7894873
+                </p>
+            </div>
+
+            <h3>1. Finalidad del Marco Normativo</h3>
+            <p>En estricto apego a la <strong>Ley 1581 de 2012</strong>, el <strong>Decreto 1377 de 2013</strong> y disposiciones normativas complementarias sobre protección de datos en Colombia, se comunica a los usuarios el tratamiento aplicable a los datos en este sitio educativo.</p>
+
+            <h3>2. Perfil del Sitio Web</h3>
+            <p>Este portal opera como una <strong>guía pedagógica abierta</strong>. No implementa registros de usuarios, formularios interactivos ni cookies de rastreo comercial. Por consiguiente, bajo una navegación habitual, el sistema no recopila información personal.</p>
+
+            <h3>3. Métricas Técnicas Automáticas</h3>
+            <p>De forma automática, el servidor de alojamiento puede registrar parámetros técnicos estándar (como direcciones IP o tipos de navegador) utilizados exclusivamente con fines estadísticos globales y de seguridad informática.</p>
+
+            <h3>4. Uso de la Información Técnica</h3>
+            <p>Cualquier registro técnico se destina rigurosamente a:</p>
+            <ul>
+                <li>Garantizar el desempeño operativo correcto de la plataforma.</li>
+                <li>Prevenir accesos no autorizados o incidencias técnicas en el servidor.</li>
+                <li>Evaluar estadísticas agregadas y anónimas de visita.</li>
+            </ul>
+
+            <h3>5. Inexistencia de Cesión</h3>
+            <p>El administrador no transfiere, comercializa ni cede registros técnicos a terceros, salvo mandato expreso de autoridad competente mediante orden legal debida.</p>
+
+            <h3>6. Prerrogativas del Titular</h3>
+            <p>Conforme a la Ley 1581 de 2012, los titulares disponen de mecanismos para conocer, actualizar, rectificar o solicitar supresión de registros técnicos, además de presentar consultas ante el responsable.</p>
+
+            <h3>7. Canal Oficial de Contacto</h3>
+            <p>Para peticiones, dudas o aclaraciones sobre privacidad, comuníquese a través del correo electrónico: <strong>weree9375@gmail.com</strong> o al teléfono <strong>301 7894873</strong>.</p>
+
+            <h3>8. Actualizaciones</h3>
+            <p>El administrador se reserva el derecho de modificar esta política cuando resulte pertinente, publicando la versión actualizada en este mismo espacio.</p>
+
+            <div class="info-box">
+                <strong>Organismo de control:</strong> Superintendencia de Industria y Comercio (SIC) de Colombia. Más detalles en: <em>www.sic.gov.co</em>.
+            </div>
+        </section>
+    </main>
+</div>
+
+<!-- ====================== TÉRMINOS Y CONDICIONES ====================== -->
+<div id="page-terminos-condiciones" class="page">
+    <main>
+        <section>
+            <div class="breadcrumb"><a href="#inicio">~/inicio</a> &gt; terminos-condiciones</div>
+            <h2>Condiciones Generales de Uso</h2>
+            <p><em>Última actualización: 8 de mayo de 2026</em></p>
+
+            <div class="responsable-box">
+                <strong>Responsable del Sitio y Contenidos:</strong>
+                <p style="margin-top: 0.6rem;">
+                    <strong>Nombre:</strong> Wilson Marin Ortiz<br>
+                    <strong>Cédula / NIT:</strong> 1.193.406.873-1<br>
+                    <strong>Dirección:</strong> Calle 53d #19.06, Barranquilla, Atlántico — Colombia<br>
+                    <strong>Correo electrónico:</strong> weree9375@gmail.com<br>
+                    <strong>Teléfono:</strong> 301 7894873
+                </p>
+            </div>
+
+            <h3>1. Aceptación de las Condiciones</h3>
+            <p>La consulta y navegación en este portal implican la aceptación total, expresa y sin reservas de los presentes Términos y Condiciones por parte del visitante.</p>
+
+            <h3>2. Carácter Orientativo</h3>
+            <p>El contenido publicado posee una finalidad <strong>exclusivamente pedagógica</strong> sobre el manejo de extintores. No constituye asesoría técnica profesional certificada ni ingeniería especializada en seguridad contra incendios.</p>
+
+            <h3>3. Inexistencia de Actividad Comercial</h3>
+            <p>El sitio no efectúa ventas de artículos, no presta servicios comerciales de recarga, no procesa cobros ni realiza captación de clientes o consumidores.</p>
+
+            <h3>4. Propiedad Intelectual</h3>
+            <p>Los textos, diseños y recursos gráficos pertenecen al administrador. Se permite su reproducción parcial con fines académicos citando la fuente original. Queda prohibida su explotación mercantil sin autorización previa.</p>
+
+            <h3>5. Responsabilidad Limitada</h3>
+            <p>El administrador procura mantener información exacta y actualizada, pero no asume garantías absolutas sobre la ausencia de errores involuntarios. Ante contingencias reales, acuda de inmediato a profesionales certificados o a la línea <strong>123</strong>.</p>
+
+            <h3>6. Modificaciones y Disponibilidad</h3>
+            <p>El administrador podrá modificar los contenidos y condiciones en cualquier instante sin previo aviso, así como suspender temporalmente el acceso por labores de mantenimiento técnico.</p>
+
+            <h3>7. Marco Jurídico y Jurisdicción</h3>
+            <p>Estas Condiciones se rigen por las leyes de la <strong>República de Colombia</strong>. Cualquier divergencia se someterá a los despachos judiciales competentes de la ciudad de Barranquilla, Atlántico.</p>
+
+            <h3>8. Canal de Soporte</h3>
+            <p>Para cualquier consulta sobre estos términos, diríjase al correo electrónico: <strong>weree9375@gmail.com</strong> o al teléfono <strong>301 7894873</strong>.</p>
+
+            <div class="info-box">
+                <strong>Constancia final:</strong> Al permanecer en este portal web, el usuario confirma haber leído, comprendido y aceptado íntegramente las Condiciones de Uso junto con la Política de Privacidad establecida.
+            </div>
+        </section>
+    </main>
+</div>
+
+<!-- ====================== FOOTER ====================== -->
+<footer>
+    <div class="footer-container">
+        <div class="responsable-footer">
+            <h4>Identificación del Anunciante y Administrador</h4>
+            <p>Portal educativo de carácter no comercial enfocado en la seguridad residencial. El anunciante y administrador responsable es:</p>
+            <p style="margin-top: 0.8rem;">
+                <strong>Wilson Marin Ortiz</strong><br>
+                <strong>Cédula / NIT:</strong> 1.193.406.873-1<br>
+                Calle 53d #19.06, Barranquilla, Atlántico — Colombia<br>
+                Correo: weree9375@gmail.com<br>
+                Teléfono: 301 7894873
+            </p>
+        </div>
+        <div>
+            <h4>Navegación</h4>
+            <ul>
+                <li><a href="#inicio">Principal</a></li>
+                <li><a href="#sobre-nosotros">Nuestra Entidad</a></li>
+                <li><a href="#mision-vision">Filosofía</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>Marco Legal</h4>
+            <ul>
+                <li><a href="#politicas-privacidad">Normativa y Privacidad</a></li>
+                <li><a href="#terminos-condiciones">Condiciones de Uso</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 Wilson Marin Ortiz · Todos los derechos reservados</p>
+        <p>Portal pedagógico · Sin fines comerciales · Sin recolección de datos personales</p>
+    </div>
+</footer>
+
+<!-- Botón Flotante de WhatsApp -->
+<a href="https://wa.me/573017894873" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat en WhatsApp">
+    <svg class="whatsapp-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+        <path fill="currentColor" d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3 18.6-68.1-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.9-186.6 184.9zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+    </svg>
+</a>
+
+<script>
+(function() {
+    var validPages = ['inicio', 'sobre-nosotros', 'mision-vision', 'politicas-privacidad', 'terminos-condiciones'];
+
+    var titles = {
+        'inicio': 'Wilson Marin Ortiz',
+        'sobre-nosotros': 'Wilson Marin Ortiz · Nuestra Entidad',
+        'mision-vision': 'Wilson Marin Ortiz · Filosofía',
+        'politicas-privacidad': 'Wilson Marin Ortiz · Normativa y Privacidad',
+        'terminos-condiciones': 'Wilson Marin Ortiz · Condiciones de Uso'
+    };
+
+    function showPage(pageId) {
+        if (validPages.indexOf(pageId) === -1) pageId = 'inicio';
+
+        var pages = document.querySelectorAll('.page');
+        for (var i = 0; i < pages.length; i++) {
+            pages[i].classList.remove('active');
+        }
+        var navs = document.querySelectorAll('nav a');
+        for (var j = 0; j < navs.length; j++) {
+            navs[j].classList.remove('active');
+        }
+
+        var page = document.getElementById('page-' + pageId);
+        if (page) page.classList.add('active');
+
+        var navLink = document.getElementById('nav-' + pageId);
+        if (navLink) navLink.classList.add('active');
+
+        if (titles[pageId]) document.title = titles[pageId];
+    }
+
+    function loadFromHash() {
+        var hash = (window.location.hash || '').replace('#', '');
+        showPage(hash || 'inicio');
+        window.scrollTo(0, 0);
+    }
+
+    window.addEventListener('hashchange', loadFromHash);
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadFromHash);
+    } else {
+        loadFromHash();
+    }
+})();
+</script>
+
+</body>
+</html>
